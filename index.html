@@ -6,51 +6,93 @@
   <title>MediTrack Pro — Minimal</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+
+  <!-- ========== ADD MEDICINE MODAL (APPLE STYLE) ========== -->
+  <div id="add-modal" class="modal hidden">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+
+    <div class="modal-box">
+        <h2>Add Medicine</h2>
+
+        <form id="add-form">
+            <label>Medicine name</label>
+            <input type="text" id="add-name" placeholder="e.g. Paracetamol 500mg" required>
+
+            <label>Batch number</label>
+            <input type="text" id="add-batch" placeholder="e.g. BATCH123" required>
+
+            <label>Expiry date</label>
+            <input type="date" id="add-expiry" required>
+
+            <label>Quantity</label>
+            <input type="number" id="add-qty" min="1" value="1" required>
+
+            <div class="modal-actions">
+                <button type="button" class="btn subtle" id="close-add">Cancel</button>
+                <button type="submit" class="btn primary">Save</button>
+            </div>
+        </form>
+    </div>
+  </div>
+
+
+  <!-- ========== TOP BAR ========== -->
   <header class="topbar">
     <div class="brand">
-      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><rect rx='6' width='28' height='28' fill='%2310b981'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-size='16' fill='white' font-family='Arial'>M</text></svg>" alt="logo" class="logo">
+      <div class="logo-circle">M</div>
       <div>
         <div class="title">MediTrack Pro</div>
-        <div class="subtitle">Inventory &amp; Expiry — Minimal</div>
+        <div class="subtitle">Inventory & Expiry — Minimal</div>
       </div>
     </div>
 
     <div class="top-actions">
-      <a class="file-link" href="/mnt/data/Design and Analysis of Algorithms.pdf" target="_blank" rel="noopener">Certificate 1</a>
-      <a class="file-link" href="/mnt/data/The Joy of Computing using Python (1).pdf" target="_blank" rel="noopener">Certificate 2</a>
       <button id="settings-btn" class="btn subtle">Settings</button>
       <button id="logout-btn" class="btn subtle">Logout</button>
     </div>
   </header>
 
+
+
+  <!-- ========== MAIN PAGE CONTENT ========== -->
   <main class="container">
+
+    <!-- Stats Cards -->
     <section class="stats-row">
       <div class="stat card">
         <div class="stat-title">TOTAL STOCK</div>
         <div id="total-count" class="stat-value">0</div>
       </div>
+
       <div class="stat card">
         <div class="stat-title">EXPIRING SOON</div>
         <div id="expiring-count" class="stat-value highlight">0</div>
       </div>
+
       <div class="stat card">
         <div class="stat-title">EXPIRED</div>
         <div id="expired-count" class="stat-value danger">0</div>
       </div>
+
       <div class="stat card">
         <div class="stat-title">LOW STOCK</div>
         <div id="low-stock-count" class="stat-value">0</div>
       </div>
     </section>
 
+
+    <!-- Controls Row -->
     <section class="controls card">
       <div class="left">
         <button id="scan-mode-btn" class="btn primary soft-shadow">📷 Scan Barcode</button>
+
         <div class="search-wrap">
           <input id="search-input" class="search-input" type="search" placeholder="Search name, batch, or barcode..." />
-          <button id="clear-search" class="icon-btn" title="Clear search">✕</button>
+          <button id="clear-search" class="icon-btn">✕</button>
         </div>
+
         <select id="filter-status" class="filter-select">
           <option value="all">All Statuses</option>
           <option value="expired">Expired</option>
@@ -65,8 +107,11 @@
       </div>
     </section>
 
+
+
+    <!-- TABLE -->
     <section class="table-card card">
-      <table class="inventory-table" aria-describedby="table-info">
+      <table class="inventory-table">
         <thead>
           <tr>
             <th>Medicine Details</th>
@@ -76,45 +121,14 @@
             <th style="text-align:right">Actions</th>
           </tr>
         </thead>
+
         <tbody id="inventory-list"></tbody>
       </table>
 
-      <div id="table-empty" class="empty-state">No medicines — add one with the <strong>+ Add Medicine</strong> button.</div>
+      <div id="table-empty" class="empty-state hidden">No medicines — add one using the <strong>+ Add Medicine</strong> button.</div>
     </section>
+
   </main>
-
-  <!-- Add Modal -->
-  <div id="modal-overlay" class="modal hidden" aria-hidden="true">
-    <div class="modal-card">
-      <h3 id="modal-title">Add Medicine</h3>
-      <form id="med-form" class="form-grid">
-        <label>
-          <span>Medicine name</span>
-          <input id="med-name" required placeholder="e.g. Paracetamol 500mg" />
-        </label>
-
-        <label>
-          <span>Batch number</span>
-          <input id="med-batch" required placeholder="e.g. BATCH123" />
-        </label>
-
-        <label>
-          <span>Expiry date</span>
-          <input id="med-date" type="date" required />
-        </label>
-
-        <label>
-          <span>Quantity</span>
-          <input id="med-qty" type="number" min="0" value="1" required />
-        </label>
-
-        <div class="modal-actions">
-          <button type="button" id="cancel-btn" class="btn subtle">Cancel</button>
-          <button type="submit" class="btn accent">Save</button>
-        </div>
-      </form>
-    </div>
-  </div>
 
   <script type="module" src="app.js"></script>
 </body>
