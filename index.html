@@ -6,29 +6,35 @@
     <title>MediTrack Pro</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <!-- Login Screen -->
+
+    <!-- LOGIN SCREEN -->
     <div id="login-screen" class="container center-content">
         <div class="card login-card">
             <div style="font-size: 3rem; margin-bottom: 1rem;">🏥</div>
             <h1>MediTrack Pro</h1>
             <p style="color: #64748b; margin-bottom: 2rem;">Inventory & Expiry Management</p>
-            <button id="login-btn" class="btn primary" style="width: 100%">Access Dashboard</button>
-            <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 1rem;">*Demo Mode: Anonymous Login</p>
+
+            <button id="login-btn" class="btn primary" style="width: 100%">
+                Access Dashboard
+            </button>
+
+            <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 1rem;">
+                *Demo Mode — No Login Required
+            </p>
         </div>
     </div>
 
-    <!-- Dashboard Screen -->
+    <!-- DASHBOARD -->
     <div id="dashboard-screen" class="hidden">
         <nav class="navbar">
             <div class="nav-brand"><span>🏥</span> MediTrack Pro</div>
-            <div style="display: flex; gap: 10px; align-items: center;">
-                <button id="settings-btn" class="btn secondary">⚙️ Settings</button>
-                <button id="logout-btn" class="btn secondary">Logout</button>
-            </div>
         </nav>
 
         <main class="main-content">
+
+            <!-- STATS -->
             <div class="stats-grid">
                 <div class="stat-card info"><h3>Total Stock</h3><span id="total-count">0</span></div>
                 <div class="stat-card warning"><h3>Expiring Soon</h3><span id="expiring-count">0</span></div>
@@ -36,19 +42,26 @@
                 <div class="stat-card"><h3>Low Stock</h3><span id="low-stock-count">0</span></div>
             </div>
 
+            <!-- ACTION BAR -->
             <div class="action-bar">
                 <button id="scan-mode-btn" class="btn accent">📷 Scan Barcode</button>
-                <div class="search-wrapper"><input type="text" id="search-input" placeholder="Search name, batch, or barcode..."></div>
+
+                <div class="search-wrapper">
+                    <input type="text" id="search-input" placeholder="Search name or batch...">
+                </div>
+
                 <select id="filter-status" class="filter-select">
                     <option value="all">All Statuses</option>
-                    <option value="expired">⚠️ Expired</option>
-                    <option value="warning">⏳ Expiring Soon</option>
-                    <option value="low">📉 Low Stock</option>
-                    <option value="good">✅ Good Stock</option>
+                    <option value="expired">Expired</option>
+                    <option value="warning">Expiring Soon</option>
+                    <option value="low">Low Stock</option>
+                    <option value="good">Good</option>
                 </select>
+
                 <button id="add-btn" class="btn primary">+ Add Medicine</button>
             </div>
 
+            <!-- TABLE -->
             <div class="table-container">
                 <table>
                     <thead>
@@ -57,21 +70,48 @@
                             <th>Status</th>
                             <th>Expiry Date</th>
                             <th>Quantity</th>
-                            <th style="text-align: right">Actions</th>
+                            <th style="text-align:right">Actions</th>
                         </tr>
                     </thead>
+
                     <tbody id="inventory-list"></tbody>
                 </table>
-                <div id="loading-spinner" style="padding:40px;text-align:center;color:#64748b;">Loading inventory...</div>
-                <div id="empty-state" class="empty-state hidden"><span class="empty-icon">📦</span>No medicines found.</div>
+                <div id="loading-spinner" style="padding:40px;text-align:center;color:#64748b;">
+                    Loading inventory...
+                </div>
             </div>
+
         </main>
     </div>
 
-    <!-- Modal containers remain unchanged -->
-    <!-- (Modal HTML content is same as original, omitted here for brevity. I can include full modal HTML if you want.) -->
+    <!-- ADD MEDICINE MODAL -->
+    <div id="add-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Add Medicine</h2>
 
+            <form id="add-form">
+                <label>Name</label>
+                <input type="text" id="add-name" required>
 
+                <label>Batch Number</label>
+                <input type="text" id="add-batch" required>
+
+                <label>Expiry Date</label>
+                <input type="date" id="add-expiry" required>
+
+                <label>Quantity</label>
+                <input type="number" id="add-qty" value="1" min="0" required>
+
+                <div class="modal-actions">
+                    <button type="button" id="close-add" class="btn secondary">Cancel</button>
+                    <button type="submit" class="btn primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JS -->
     <script type="module" src="app.js"></script>
+
 </body>
 </html>
