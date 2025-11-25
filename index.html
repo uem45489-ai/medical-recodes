@@ -1,135 +1,108 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>MediTrack Pro — Minimal</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MediTrack Pro — Minimal</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+    <header class="topbar">
+        <div class="brand">
+            <img src="data:image/svg+xml;utf8,
+            <svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'>
+              <rect rx='6' width='28' height='28' fill='%2310b981'/>
+              <text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-size='16' fill='white' font-family='Arial'>M</text>
+            </svg>" class="logo">
 
-  <!-- ========== ADD MEDICINE MODAL (APPLE STYLE) ========== -->
-  <div id="add-modal" class="modal hidden">
-    <div class="modal-backdrop" id="modal-backdrop"></div>
-
-    <div class="modal-box">
-        <h2>Add Medicine</h2>
-
-        <form id="add-form">
-            <label>Medicine name</label>
-            <input type="text" id="add-name" placeholder="e.g. Paracetamol 500mg" required>
-
-            <label>Batch number</label>
-            <input type="text" id="add-batch" placeholder="e.g. BATCH123" required>
-
-            <label>Expiry date</label>
-            <input type="date" id="add-expiry" required>
-
-            <label>Quantity</label>
-            <input type="number" id="add-qty" min="1" value="1" required>
-
-            <div class="modal-actions">
-                <button type="button" class="btn subtle" id="close-add">Cancel</button>
-                <button type="submit" class="btn primary">Save</button>
+            <div>
+                <div class="title">MediTrack Pro</div>
+                <div class="subtitle">Inventory & Expiry — Minimal</div>
             </div>
-        </form>
-    </div>
-  </div>
-
-
-  <!-- ========== TOP BAR ========== -->
-  <header class="topbar">
-    <div class="brand">
-      <div class="logo-circle">M</div>
-      <div>
-        <div class="title">MediTrack Pro</div>
-        <div class="subtitle">Inventory & Expiry — Minimal</div>
-      </div>
-    </div>
-
-    <div class="top-actions">
-      <button id="settings-btn" class="btn subtle">Settings</button>
-      <button id="logout-btn" class="btn subtle">Logout</button>
-    </div>
-  </header>
-
-
-
-  <!-- ========== MAIN PAGE CONTENT ========== -->
-  <main class="container">
-
-    <!-- Stats Cards -->
-    <section class="stats-row">
-      <div class="stat card">
-        <div class="stat-title">TOTAL STOCK</div>
-        <div id="total-count" class="stat-value">0</div>
-      </div>
-
-      <div class="stat card">
-        <div class="stat-title">EXPIRING SOON</div>
-        <div id="expiring-count" class="stat-value highlight">0</div>
-      </div>
-
-      <div class="stat card">
-        <div class="stat-title">EXPIRED</div>
-        <div id="expired-count" class="stat-value danger">0</div>
-      </div>
-
-      <div class="stat card">
-        <div class="stat-title">LOW STOCK</div>
-        <div id="low-stock-count" class="stat-value">0</div>
-      </div>
-    </section>
-
-
-    <!-- Controls Row -->
-    <section class="controls card">
-      <div class="left">
-        <button id="scan-mode-btn" class="btn primary soft-shadow">📷 Scan Barcode</button>
-
-        <div class="search-wrap">
-          <input id="search-input" class="search-input" type="search" placeholder="Search name, batch, or barcode..." />
-          <button id="clear-search" class="icon-btn">✕</button>
         </div>
 
-        <select id="filter-status" class="filter-select">
-          <option value="all">All Statuses</option>
-          <option value="expired">Expired</option>
-          <option value="warning">Expiring Soon</option>
-          <option value="low">Low Stock</option>
-          <option value="good">Good</option>
-        </select>
-      </div>
+        <div class="top-actions">
+            <button id="settings-btn" class="btn subtle">Settings</button>
+            <button id="logout-btn" class="btn subtle">Logout</button>
+        </div>
+    </header>
 
-      <div class="right">
-        <button id="add-btn" class="btn accent">+ Add Medicine</button>
-      </div>
-    </section>
+    <main class="container">
 
+        <!-- Stats -->
+        <section class="stats-row">
+            <div class="stat card"><div class="stat-title">TOTAL STOCK</div><div id="total-count" class="stat-value">0</div></div>
+            <div class="stat card"><div class="stat-title">EXPIRING SOON</div><div id="expiring-count" class="stat-value highlight">0</div></div>
+            <div class="stat card"><div class="stat-title">EXPIRED</div><div id="expired-count" class="stat-value danger">0</div></div>
+            <div class="stat card"><div class="stat-title">LOW STOCK</div><div id="low-stock-count" class="stat-value">0</div></div>
+        </section>
 
+        <!-- Controls -->
+        <section class="controls card">
+            <div class="left">
+                <button id="scan-mode-btn" class="btn primary soft-shadow">📷 Scan</button>
 
-    <!-- TABLE -->
-    <section class="table-card card">
-      <table class="inventory-table">
-        <thead>
-          <tr>
-            <th>Medicine Details</th>
-            <th>Status</th>
-            <th>Expiry Date</th>
-            <th>Quantity</th>
-            <th style="text-align:right">Actions</th>
-          </tr>
-        </thead>
+                <div class="search-wrap">
+                    <input id="search-input" class="search-input" type="search" placeholder="Search name, batch, or barcode..." />
+                    <button id="clear-search" class="icon-btn">✕</button>
+                </div>
 
-        <tbody id="inventory-list"></tbody>
-      </table>
+                <select id="filter-status" class="filter-select">
+                    <option value="all">All</option>
+                    <option value="expired">Expired</option>
+                    <option value="warning">Expiring Soon</option>
+                    <option value="low">Low</option>
+                    <option value="good">Good</option>
+                </select>
+            </div>
 
-      <div id="table-empty" class="empty-state hidden">No medicines — add one using the <strong>+ Add Medicine</strong> button.</div>
-    </section>
+            <div class="right">
+                <button id="add-btn" class="btn accent">+ Add Medicine</button>
+            </div>
+        </section>
 
-  </main>
+        <!-- Table -->
+        <section class="table-card card">
+            <table class="inventory-table">
+                <thead>
+                    <tr>
+                        <th>Medicine</th>
+                        <th>Status</th>
+                        <th>Expiry</th>
+                        <th>Qty</th>
+                        <th style="text-align:right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="inventory-list"></tbody>
+            </table>
 
-  <script type="module" src="app.js"></script>
+            <div id="table-empty" class="empty-state">
+                No medicines — add one with the <strong>+ Add Medicine</strong> button.
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Add Modal -->
+    <div id="modal-overlay" class="modal hidden">
+        <div class="modal-card">
+            <h3 id="modal-title">Add Medicine</h3>
+
+            <form id="med-form">
+                <label>Medicine name<input id="med-name" required></label>
+                <label>Batch number<input id="med-batch" required></label>
+                <label>Expiry date<input type="date" id="med-date" required /></label>
+                <label>Quantity<input type="number" id="med-qty" value="1" min="1" required /></label>
+
+                <div class="modal-actions">
+                    <button type="button" id="cancel-btn" class="btn subtle">Cancel</button>
+                    <button type="submit" class="btn accent">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>
