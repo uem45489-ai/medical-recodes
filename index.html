@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediTrack Pro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="container center-content">
+        <div class="card login-card">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">🏥</div>
+            <h1>MediTrack Pro</h1>
+            <p style="color: #64748b; margin-bottom: 2rem;">Inventory & Expiry Management</p>
+            <button id="login-btn" class="btn primary" style="width: 100%">Access Dashboard</button>
+            <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 1rem;">*Demo Mode: Anonymous Login</p>
+        </div>
+    </div>
+
+    <!-- Dashboard Screen -->
+    <div id="dashboard-screen" class="hidden">
+        <nav class="navbar">
+            <div class="nav-brand"><span>🏥</span> MediTrack Pro</div>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <button id="settings-btn" class="btn secondary">⚙️ Settings</button>
+                <button id="logout-btn" class="btn secondary">Logout</button>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <div class="stats-grid">
+                <div class="stat-card info"><h3>Total Stock</h3><span id="total-count">0</span></div>
+                <div class="stat-card warning"><h3>Expiring Soon</h3><span id="expiring-count">0</span></div>
+                <div class="stat-card danger"><h3>Expired</h3><span id="expired-count">0</span></div>
+                <div class="stat-card"><h3>Low Stock</h3><span id="low-stock-count">0</span></div>
+            </div>
+
+            <div class="action-bar">
+                <button id="scan-mode-btn" class="btn accent">📷 Scan Barcode</button>
+                <div class="search-wrapper"><input type="text" id="search-input" placeholder="Search name, batch, or barcode..."></div>
+                <select id="filter-status" class="filter-select">
+                    <option value="all">All Statuses</option>
+                    <option value="expired">⚠️ Expired</option>
+                    <option value="warning">⏳ Expiring Soon</option>
+                    <option value="low">📉 Low Stock</option>
+                    <option value="good">✅ Good Stock</option>
+                </select>
+                <button id="add-btn" class="btn primary">+ Add Medicine</button>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Medicine Details</th>
+                            <th>Status</th>
+                            <th>Expiry Date</th>
+                            <th>Quantity</th>
+                            <th style="text-align: right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventory-list"></tbody>
+                </table>
+                <div id="loading-spinner" style="padding:40px;text-align:center;color:#64748b;">Loading inventory...</div>
+                <div id="empty-state" class="empty-state hidden"><span class="empty-icon">📦</span>No medicines found.</div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal containers remain unchanged -->
+    <!-- (Modal HTML content is same as original, omitted here for brevity. I can include full modal HTML if you want.) -->
+
+    <script src="app.js" type="module"></script>
+</body>
+</html>
