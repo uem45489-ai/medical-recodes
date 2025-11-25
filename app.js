@@ -18,7 +18,9 @@ function refresh() {
             <td>${m.status}</td>
             <td>${m.expiry}</td>
             <td>${m.qty}</td>
-            <td style="text-align:right"><button onclick="delMed(${i})">🗑️</button></td>
+            <td style="text-align:right">
+                <button onclick="delMed(${i})">🗑️</button>
+            </td>
         `;
         list.appendChild(tr);
     });
@@ -49,42 +51,66 @@ function delMed(i) {
     refresh();
 }
 
-/* Modal */
-const modal = document.getElementById("modal-overlay");
-document.getElementById("add-btn").onclick = () => modal.classList.remove("hidden");
-document.getElementById("cancel-btn").onclick = () => modal.classList.add("hidden");
+/* ------------------------ MODAL ------------------------ */
 
-document.getElementById("med-form").onsubmit = (e) => {
+const modal = document.getElementById("modal-overlay");
+document.getElementById("add-btn").onclick = () => {
+    modal.classList.remove("hidden");
+};
+
+document.getElementById("cancel-btn").onclick = () => {
+    modal.classList.add("hidden");
+};
+
+/* ------------------------ FIXED SAVE BUTTON ------------------------ */
+
+document.getElementById("med-form").addEventListener("submit", (e) => {
     e.preventDefault();
-    const name = med-name.value;
-    const batch = med-batch.value;
-    const expiry = med-date.value;
-    const qty = med-qty.value;
+
+    // FIX: IDs matched with HTML
+    const name = document.getElementById("med-name").value.trim();
+    const batch = document.getElementById("med-batch").value.trim();
+    const expiry = document.getElementById("med-date").value;
+    const qty = document.getElementById("med-qty").value;
+
+    if (!name || !batch || !expiry || !qty) {
+        alert("Please fill all fields!");
+        return;
+    }
 
     medicines.push({
-        name, batch, expiry, qty,
+        name,
+        batch,
+        expiry,
+        qty,
         status: statusOf(expiry, qty)
     });
 
     save();
     refresh();
     modal.classList.add("hidden");
-};
 
-/* Search */
+    document.getElementById("med-form").reset();
+});
+
+/* ------------------------ SEARCH ------------------------ */
+
 const search = document.getElementById("search-input");
+
 search.addEventListener("input", () => {
     const term = search.value.toLowerCase();
     Array.from(list.children).forEach(row => {
         row.style.display = row.innerText.toLowerCase().includes(term) ? "" : "none";
     });
 });
+
 document.getElementById("clear-search").onclick = () => {
     search.value = "";
     search.dispatchEvent(new Event("input"));
 };
 
-/* Filter */
+/* ------------------------ FILTER ------------------------ */
+
 document.getElementById("filter-status").addEventListener("change", function () {
     const val = this.value;
     Array.from(list.children).forEach(row => {
@@ -95,9 +121,11 @@ document.getElementById("filter-status").addEventListener("change", function () 
     });
 });
 
-/* Scan Button */
+/* ------------------------ SCAN BUTTON ------------------------ */
+
 document.getElementById("scan-mode-btn").onclick = () => {
     const code = prompt("📷 Enter barcode / batch number:");
+
     if (!code) return;
 
     const found = medicines.find(m =>
@@ -112,6 +140,7 @@ document.getElementById("scan-mode-btn").onclick = () => {
 
     search.value = found.batch;
     search.dispatchEvent(new Event("input"));
+
     alert("✅ Found: " + found.name);
 };
 
