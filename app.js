@@ -5,8 +5,17 @@ import { getAuth, signInAnonymously, onAuthStateChanged, signOut, signInWithCust
 import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, serverTimestamp, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
 // Firebase Config (Injected at Runtime)
-const firebaseConfig = JSON.parse(__firebase_config);
-const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+const firebaseConfig = {
+  apiKey: "AIzaSyDPSqqHikvG_ShqfHwDV9wxtL-QvTiyLlU",
+  authDomain: "medical-records-9332a.firebaseapp.com",
+  projectId: "medical-records-9332a",
+  storageBucket: "medical-records-9332a.firebasestorage.app",
+  messagingSenderId: "54516705602",
+  appId: "1:54516705602:web:ed80b4c02e05669fa400db",
+  measurementId: "G-3LP8MG037V"
+};
+const appId = "meditrack-app";
+
 
 // Init
 const app = initializeApp(firebaseConfig);
